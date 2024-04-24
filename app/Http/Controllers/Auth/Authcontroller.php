@@ -90,6 +90,10 @@ if($validatedData->fails()){
         if($user->status == 'active'){
             if(Auth::attempt(['email' => $email, 'password' => $password])){
                 Auth::login($user);
+                $loginuser = Auth::user();
+ $loginuser->active_status = "online";
+ $loginuser->last_seen="null";
+ $loginuser->save();
                 return redirect('/');
             }else{
                 return redirect('/login')->with('error','Invalid Credentials');
@@ -102,4 +106,67 @@ if($validatedData->fails()){
     }else{
         return redirect('/login')->with('error','Invalid Credentials');
     }
-}}
+}
+
+
+public function emailOTP(Request $request){
+    $email = $request->input('email');
+    $user=User::where('email',$email)->first();
+    $otp = mt_rand(100000, 999999);
+    $user->temp_otp=$otp;
+    $user->save();
+    Mail::to($email)->send(new SendOTPMail($otp));
+   if($user){
+    return view('Auth.EmailOtp')->with('email',$email);
+
+   }else{
+    return back()->with('error','email not found');
+   }
+
+
+
+
+
+
+
+
+
+
+}
+public function verifyEmailOTP(Request $request)
+{
+    $email = $request->input('email');
+    $otp = $request->input('otp');
+$user=User::where('email',$email)->where('temp_otp',$otp)->first();
+    
+        if ($otp == $user->temp_otp) {
+            
+            $user->temp_otp=null;
+            $user->email_verified_at = Carbon::now('Asia/Colombo');
+        
+            $user->save();
+            return view('Auth.Newpassword')->with('email',$email)->with('success','email verified successfully');
+
+          
+        }else{
+            return view('Auth.EmailOtp')->with('email',$email)->with('$error','invalid otp');
+        }
+
+
+
+
+
+
+}
+
+public function newPassword(Request $request)
+{
+    $email = $request->input('email');
+    $password = $request->input('password');
+    $user=User::where('email',$email)->first();
+    $user->password=bcrypt($password);
+    $user->save();
+   // Auth::login($user);
+    return redirect('/login');}
+
+}

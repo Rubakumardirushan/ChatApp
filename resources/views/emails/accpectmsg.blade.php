@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Friend Request Accepted</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif; /* Use a common sans-serif font */
+            font-family: Georgia, serif; /* Set font-family to Georgia, serif */
             background-color: #f8f9fa; /* Set a light background color */
-            text-align: center; /* Center-align text */
-            padding-top: 50px; /* Add some space from the top */
+            padding: 20px; /* Add some padding */
+        }
+        .container {
+            max-width: 600px; /* Set max width for better readability */
+            margin: auto; /* Center-align content */
+            background-color: #fff; /* Set background color for content */
+            padding: 30px; /* Add padding inside container */
+            border-radius: 10px; /* Add border radius for container */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add box shadow for container */
         }
         h1 {
             color: #0d6efd; /* Set heading color to blue */
             margin-bottom: 20px; /* Add some space below the heading */
+        }
+        p {
+            margin-bottom: 15px; /* Add some space below each paragraph */
         }
         a {
             color: #0d6efd; /* Set link color to blue */
@@ -28,13 +38,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Hello, {{ Auth::user()->name }}!</h1>
-        <a href="logout" class="btn btn-danger mb-3">Logout</a>
-        <div class="d-flex flex-column">
-            <a href="frndlist" class="btn btn-primary mb-2">Add Friend</a>
-            <a href="frndrequest" class="btn btn-secondary mb-2">View Friend Requests</a>
-            <a href="viewfrnd" class="btn btn-info">View Your Friends</a>
-        </div>
+        <h1>Friend Request Accepted</h1>
+        
+        <p>Hi {{ $receiver }},</p>
+        
+        <p>Your friend request from {{ $sender }} has been accepted.</p>
+        
+        <p>Thanks,</p>
+        <p>Your Application Team</p>
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

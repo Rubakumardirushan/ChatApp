@@ -66,7 +66,7 @@
             </div>
         @endif
         <p class="mt-3">Don't have an account? <a href="/register">Register</a></p>
-        <p class="mt-1">Forgot your password? <a href="/forgot-password">Reset Password</a></p>
+        <p class="mt-1">Forgot your password? <a href="/email">Reset Password</a></p>
     </div>
 
     <!-- Bootstrap JS -->
