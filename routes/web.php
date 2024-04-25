@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\Authcontroller;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Http\Controllers\Frnd\Frndrequest;
+use App\Http\Controllers\Chat\Chatmsg;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,3 +52,6 @@ Route::get('frndrequest',[Frndrequest::class,'viewfrndrequest'])->middleware('au
 Route::post('acceptfrnd/{username}',[Frndrequest::class,'acceptfrndrequest'])->middleware('auth');
 Route::post('rejectfrnd/{username}',[Frndrequest::class,'rejectfrndrequest'])->middleware('auth');
 Route::get('viewfrnd',[Frndrequest::class,'viewfrnd'])->middleware('auth');
+Route::get('chat',[Chatmsg::class,'chatmsg'])->middleware('auth');
+Route::post('savemsg',[Chatmsg::class,'savemsg'])->middleware('auth');
+Route::get('getmsg',[Chatmsg::class,'getmsg'])->middleware('auth');

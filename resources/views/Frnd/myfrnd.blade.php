@@ -16,18 +16,28 @@
                 @else
                     <ul class="list-group">
                         @foreach($frndrequestsendername as $index => $friend)
-                            <li class="list-group-item">
-                                {{ $friend }}
-                                @if(isset($active_status[$index]))
-                                    @if($active_status[$index] == 'online')
-                                        <span class="badge badge-success ml-2">Online</span>
-                                    @else
-                                        <span class="badge badge-danger ml-2">Offline</span>
-                                        @if(isset($last_seen[$index]))
-                                            <span class="ml-2">Last seen: {{ $last_seen[$index] }}</span>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ $friend }}</span>
+                                <div>
+                                    @if(isset($active_status[$index]))
+                                        @if($active_status[$index] == 'online')
+                                            <span class="badge badge-success ml-2">Online</span>
+                                        @else
+                                            <span class="badge badge-danger ml-2">Offline</span>
+                                            @if(isset($last_seen[$index]))
+                                                <span class="ml-2">Last seen: {{ $last_seen[$index] }}</span>
+                                            @endif
                                         @endif
                                     @endif
-                                @endif
+                                    <form action="chat">
+                                    @csrf
+                                        <!-- Hidden Inputs -->
+                                        <input type="hidden" name="receiver_name"  value={{$friend}}>
+                                    
+                                    <button class="btn btn-primary ml-2" >Chat</button>
+                                    </form>
+                                   
+                                </div>
                             </li>
                         @endforeach
                     </ul>
@@ -35,5 +45,8 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript to handle chat button click -->
+   
 </body>
 </html>
