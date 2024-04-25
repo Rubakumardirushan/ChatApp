@@ -41,9 +41,12 @@ class Chatmsg extends Controller
         $chat->status = 'unread';
         
         $chat->save();
-        $messages = Msg::where('sender_id',auth::user()->id)->where('receiver_id', $chat->receiver_id)->get();
+       // $messages = Msg::where('sender_id',auth::user()->id)->where('receiver_id', $chat->receiver_id)->get();
+        $mymsg=Msg::where('sender_id',auth::user()->id)->get();
+        $receivermsg=Msg::where('receiver_id',auth::user()->id)->get();
      //  dd($messages);
-     return view('Test.test', compact('messages'));
+    // return view('Test.test');
+    return view('Test.test', compact('mymsg', 'receivermsg'));
         
 
     }
